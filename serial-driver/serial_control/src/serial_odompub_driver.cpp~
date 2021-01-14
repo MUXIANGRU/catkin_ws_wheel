@@ -1,0 +1,118 @@
+/*************************************************************************
+	> File Name: serial_odompub_driver.cpp
+	> Author: Wangshunyao
+	> Mail: wangshunyao@cqu.edu.cn
+	> Created Time: 2017年12月07日 星期四
+ ************************************************************************/
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include "nav_msgs/Odometry.h"
+#include "geometry_msgs/Vector3Stamped.h"
+#include <sstream>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <tf/transform_broadcaster.h>
+#define pi 3.1415926
+//#define gear 7.5
+
+using namespace std;
+using namespace boost::asio;
+
+int main(int argc, char **argv)
+{
+
+  ros::init(argc, argv, "serial_odompub");
+  ros::NodeHandle n;
+  ros::Publisher speedpub = n.advertise<nav_msgs::Odometry>("odom_encoder", 1000);
+  //ros::Publisher wheel_velocitypub = n.advertise<geometry_msgs::Vector3Stamped>("wheel_velocity", 1000);
+  ros::Rate loop_rate(10);static
+  //tf::TransformBroadcaster br;
+  //tf::Transform transform;
+  //nav_msgs::Odometry odom_encoder;
+  //geometry_msgs::Vector3Stamped wheel_velocity;
+
+  //int count = 0;
+  //double px=0;
+  //double py =0;
+  //double yaw =0;
+  odom_encoder.header.stamp=ros::Time::now();
+  odom_encoder.header.frame_id="navgation_frame";
+	odom_encoder.child_frame_id="robotbase_frame";
+  //wheel_velocity.header.stamp=ros::Time::now();
+  //wheel_velocity.header.frame_id="wheel_frame";
+//ros::Time time=odom_encoder.header.stamp;
+//last_time=time;
+//  while (ros::ok())
+//  {
+
+  io_service iosev;
+        //节点文件
+  serial_port sp(iosev, "/dev/ttyUSB0");
+        // 设置参数
+  sp.set_option(serial_port::baud_rate(115200));
+  sp.set_option(serial_port::flow_control(serial_port::flow_control::none));
+  sp.set_option(serial_port::parity(serial_port::parity::none));
+  sp.set_option(serial_port::stop_bits(serial_port::stop_bits::one));
+  sp.set_option(serial_port::character_size(8));
+        // 向串口写数据
+        //write(sp, buffer("?BS\r", 4));
+		//write(sp, buffer("?BS\n", 4));
+  //串口数据格式，帧头0xfffe，16位2字节，float32 位数，vx,vy,px,py,一共18字节
+        // 向串口读数据
+  typedef union
+  {
+    unsigned char uc[4];
+    float f;
+  }Float4Byte;
+  Float4Byte f4b1,f4b2,f4b3,f4b4;
+  float vx, vy, px, py;
+
+  while (ros::ok())
+  {
+    char result[16];
+    char bufhead[2];
+    read(sp, buffer(bufhead));
+    if (bufhead[0] == 0xff&&bufhead[1]== 0xfe)
+    {
+      read(sp,buffer(result));
+      f4b1.uc[0]=(unsigned char)result[0];
+      f4b1.uc[1]=(unsigned char)result[1];
+      f4b1.uc[2]=(unsigned char)result[2];
+      f4b1.uc[3]=(unsigned char)result[3];
+      vx=f4b1.f;
+      f4b2.uc[0]=(unsigned char)result[4];
+      f4b2.uc[1]=(unsigned char)result[5];
+      f4b2.uc[2]=(unsigned char)result[6];
+      f4b2.uc[3]=(unsigned char)result[7];
+      vy=f4b2.f;
+      f4b3.uc[0]=(unsigned char)result[8];
+      f4b3.uc[1]=(unsigned char)result[9];
+      f4b3.uc[2]=(unsigned char)result[10];
+      f4b3.uc[3]=(unsigned char)result[11];
+      px=f4b3.f;
+      f4b4.uc[0]=(unsigned char)result[12];
+      f4b4.uc[1]=(unsigned char)result[13];
+      f4b4.uc[2]=(unsigned char)result[14];
+      f4b4.uc[3]=(unsigned char)result[15];
+      py=f4b4.f;
+    }
+
+
+	  odom_encoder.pose.pose.position.x=px;
+	  odom_encoder.pose.pose.position.y=py;
+  	odom_encoder.twist.twist.linear.x=vx;
+  	odom_encoder.twist.twist.linear.y=vy;
+  	odom_encoder.header.stamp=ros::Time::now();
+
+ 
+    speedpub.publish(odom_encoder);
+
+    ros::spinOnce();
+    loop_rate.sleep();
+
+  }
+
+
+  return 0;
+}
+

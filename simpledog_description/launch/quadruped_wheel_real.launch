@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default="/"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find simpledog_description)/urdf/simpledog_wheel_real.urdf.xacro'
+  --inorder
+  robot_namespace:=$(arg robot_namespace)"/>
+
+
+<include file="$(find xsens_driver)/launch/xsens_driver.launch">
+
+</include>
+
+<include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
+
+</include>
+
+<include file="$(find simpledog_description)/launch/quadruped_amcl_demo.launch">
+
+</include>
+
+<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+  <param name="publish_frequency" type="double" value="50.0" />
+  <param name="ignore_timestamp" type="bool" value="false" />
+</node>
+
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find simpledog_description)/config/quadruped_wheel_real.rviz" required="true" />
+
+
+
+
+
+
+</launch>

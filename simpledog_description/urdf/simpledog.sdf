@@ -1,0 +1,913 @@
+<sdf version='1.6'>
+  <model name='quadruped_model'>
+    <link name='base'>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0.014531 -0.000712 0.006161 0 -0 0</pose>
+        <mass>28.741</mass>
+        <inertia>
+          <ixx>0.285185</ixx>
+          <ixy>-0.000160257</ixy>
+          <ixz>-0.0328326</ixz>
+          <iyy>2.09288</iyy>
+          <iyz>-9.96997e-05</iyz>
+          <izz>2.11132</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_inertia_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/untitled.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_fixed_joint_lump__imu_link_collision_1'>
+        <pose frame=''>0.13 0 0.12 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.06 0.06 0.02</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_fixed_joint_lump__camera_link_collision_2'>
+        <pose frame=''>0.5 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.07 0.3 0.09</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_fixed_joint_lump__velodyne_base_link_collision_3'>
+        <pose frame=''>0.26 0 0.15385 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.0717</length>
+            <radius>0.0516</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='base_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_inertia_visual_1'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/untitled.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='base_fixed_joint_lump__imu_link_visual_2'>
+        <pose frame=''>0.13 0 0.12 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.06 0.06 0.02</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_fixed_joint_lump__camera_link_visual_3'>
+        <pose frame=''>0.5 0 0 0 -0 1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog/meshes/kinect.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_fixed_joint_lump__velodyne_base_link_visual_4'>
+        <pose frame=''>0.26 0 0.118 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://velodyne_description/meshes/VLP16_base_1.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='base_fixed_joint_lump__velodyne_base_link_visual_5'>
+        <pose frame=''>0.26 0 0.118 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://velodyne_description/meshes/VLP16_base_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='base_fixed_joint_lump__velodyne_visual_6'>
+        <pose frame=''>0.26 0 0.118 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://velodyne_description/meshes/VLP16_scan.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay/>
+      <sensor name='imu' type='imu'>
+        <always_on>1</always_on>
+        <update_rate>200</update_rate>
+        <visualize>1</visualize>
+        <topic>__default_topic__</topic>
+        <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
+          <topicName>imu</topicName>
+          <bodyName>imu_link</bodyName>
+          <updateRateHZ>200.0</updateRateHZ>
+          <gaussianNoise>1e-06</gaussianNoise>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+          <frameName>imu_link</frameName>
+        </plugin>
+        <pose frame=''>0.13 0 0.12 0 -0 0</pose>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <sensor name='camera' type='depth'>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <camera name='__default__'>
+          <horizontal_fov>1.04667</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>8</far>
+          </clip>
+        </camera>
+        <plugin name='kinect_camera_controller' filename='libgazebo_ros_openni_kinect.so'>
+          <cameraName>camera</cameraName>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10.0</updateRate>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>camera_frame_optical</frameName>
+          <baseline>0.1</baseline>
+          <distortion_k1>0.0</distortion_k1>
+          <distortion_k2>0.0</distortion_k2>
+          <distortion_k3>0.0</distortion_k3>
+          <distortion_t1>0.0</distortion_t1>
+          <distortion_t2>0.0</distortion_t2>
+          <pointCloudCutoff>0.4</pointCloudCutoff>
+        </plugin>
+        <pose frame=''>0.5 0 0 0 -0 0</pose>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <sensor name='velodyne-VLP16' type='ray'>
+        <visualize>0</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>16</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.261799</min_angle>
+              <max_angle>0.261799</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.3</min>
+            <max>131</max>
+            <resolution>0.001</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0</stddev>
+          </noise>
+        </ray>
+        <plugin name='gazebo_ros_laser_controller' filename='libgazebo_ros_velodyne_laser.so'>
+          <topicName>/velodyne_points</topicName>
+          <frameName>velodyne</frameName>
+          <min_range>0.9</min_range>
+          <max_range>130.0</max_range>
+          <gaussianNoise>0.008</gaussianNoise>
+        </plugin>
+        <pose frame=''>0.26 0 0.1557 0 -0 0</pose>
+      </sensor>
+    </link>
+    <link name='LF_HIP'>
+      <pose frame=''>0.427 0.075 -0.0095 3.14159 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.000688 0.10488 -0.003776 0 -0 0</pose>
+        <mass>2.9231</mass>
+        <inertia>
+          <ixx>0.00482</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.007868</iyy>
+          <iyz>0</iyz>
+          <izz>0.008241</izz>
+        </inertia>
+      </inertial>
+      <collision name='LF_HIP_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LF_HIP_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LF_HAA' type='revolute'>
+      <child>LF_HIP</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>1 0 -4e-06</xyz>
+        <limit>
+          <lower>-3</lower>
+          <upper>3</upper>
+          <effort>300</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='LF_THIGH'>
+      <pose frame=''>0.427 0.075 -0.0095 1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.18475 3.2e-05 0.12906 0 -0 0</pose>
+        <mass>4.2164</mass>
+        <inertia>
+          <ixx>0.006286</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.028156</iyy>
+          <iyz>0</iyz>
+          <izz>0.029242</izz>
+        </inertia>
+      </inertial>
+      <collision name='LF_THIGH_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LF_THIGH_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LF_HFE' type='revolute'>
+      <child>LF_THIGH</child>
+      <parent>LF_HIP</parent>
+      <axis>
+        <xyz>-4e-06 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='LF_SHANK'>
+      <pose frame=''>0.426999 0.075 -0.3175 1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.211222 0.000185 0.225783 0 -0 0</pose>
+        <mass>0.47789</mass>
+        <inertia>
+          <ixx>0.000399798</ixx>
+          <ixy>7.88416e-07</ixy>
+          <ixz>-2.00827e-05</ixz>
+          <iyy>0.00674419</iyy>
+          <iyz>3.12672e-08</iyz>
+          <izz>0.00702739</izz>
+        </inertia>
+      </inertial>
+      <collision name='LF_SHANK_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='LF_SHANK_fixed_joint_lump__LF_FOOT_collision_1'>
+        <pose frame=''>0.308 0 0.23 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_lf_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LF_SHANK_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_left_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='LF_SHANK_fixed_joint_lump__LF_FOOT_visual_1'>
+        <pose frame=''>0.308 0 0.23 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_lf_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LF_KFE' type='revolute'>
+      <child>LF_SHANK</child>
+      <parent>LF_THIGH</parent>
+      <axis>
+        <xyz>-4e-06 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='LH_HIP'>
+      <pose frame=''>-0.427 0.075 -0.0095 3.14159 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>-0.000688 0.10488 0.003776 0 -0 0</pose>
+        <mass>2.9231</mass>
+        <inertia>
+          <ixx>0.00482</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.007868</iyy>
+          <iyz>0</iyz>
+          <izz>0.008241</izz>
+        </inertia>
+      </inertial>
+      <collision name='LH_HIP_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LH_HIP_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LH_HAA' type='revolute'>
+      <child>LH_HIP</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>1 0 -4e-06</xyz>
+        <limit>
+          <lower>-3</lower>
+          <upper>3</upper>
+          <effort>300</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='LH_THIGH'>
+      <pose frame=''>-0.427 0.075 -0.0095 1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.184717 3.2e-05 0.129056 0 -0 0</pose>
+        <mass>4.21636</mass>
+        <inertia>
+          <ixx>0.006286</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.028156</iyy>
+          <iyz>0</iyz>
+          <izz>0.029242</izz>
+        </inertia>
+      </inertial>
+      <collision name='LH_THIGH_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LH_THIGH_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LH_HFE' type='revolute'>
+      <child>LH_THIGH</child>
+      <parent>LH_HIP</parent>
+      <axis>
+        <xyz>-4e-06 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='LH_SHANK'>
+      <pose frame=''>-0.427001 0.075 -0.3175 1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.211225 0.000185 0.225785 0 -0 0</pose>
+        <mass>0.477889</mass>
+        <inertia>
+          <ixx>0.000399797</ixx>
+          <ixy>7.88398e-07</ixy>
+          <ixz>-2.00743e-05</ixz>
+          <iyy>0.00674416</iyy>
+          <iyz>3.12549e-08</iyz>
+          <izz>0.00702737</izz>
+        </inertia>
+      </inertial>
+      <collision name='LH_SHANK_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='LH_SHANK_fixed_joint_lump__LH_FOOT_collision_1'>
+        <pose frame=''>0.308 0 0.23 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rl_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='LH_SHANK_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_left_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='LH_SHANK_fixed_joint_lump__LH_FOOT_visual_1'>
+        <pose frame=''>0.308 0 0.23 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rl_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LH_KFE' type='revolute'>
+      <child>LH_SHANK</child>
+      <parent>LH_THIGH</parent>
+      <axis>
+        <xyz>-4e-06 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RF_HIP'>
+      <pose frame=''>0.427 -0.075 -0.0095 7e-06 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>-0.000688 0.104882 0.003776 0 -0 0</pose>
+        <mass>2.92311</mass>
+        <inertia>
+          <ixx>0.00482</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.007868</iyy>
+          <iyz>0</iyz>
+          <izz>0.008241</izz>
+        </inertia>
+      </inertial>
+      <collision name='RF_HIP_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RF_HIP_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RF_HAA' type='revolute'>
+      <child>RF_HIP</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>-1 7e-06 4e-06</xyz>
+        <limit>
+          <lower>-3</lower>
+          <upper>3</upper>
+          <effort>300</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RF_THIGH'>
+      <pose frame=''>0.427 -0.075 -0.0095 -1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.184747 3.2e-05 0.129056 0 -0 0</pose>
+        <mass>4.21636</mass>
+        <inertia>
+          <ixx>0.006286</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.028156</iyy>
+          <iyz>0</iyz>
+          <izz>0.029242</izz>
+        </inertia>
+      </inertial>
+      <collision name='RF_THIGH_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RF_THIGH_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RF_HFE' type='revolute'>
+      <child>RF_THIGH</child>
+      <parent>RF_HIP</parent>
+      <axis>
+        <xyz>-4e-06 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RF_SHANK'>
+      <pose frame=''>0.426999 -0.075 -0.3175 -1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.211225 0.000185 0.22509 0 -0 0</pose>
+        <mass>0.477889</mass>
+        <inertia>
+          <ixx>0.000399746</ixx>
+          <ixy>7.88398e-07</ixy>
+          <ixz>1.94248e-05</ixz>
+          <iyy>0.00674411</iyy>
+          <iyz>-3.02437e-08</iyz>
+          <izz>0.00702737</izz>
+        </inertia>
+      </inertial>
+      <collision name='RF_SHANK_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='RF_SHANK_fixed_joint_lump__RF_FOOT_collision_1'>
+        <pose frame=''>0.308 0 0.22053 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Orgin_rf_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RF_SHANK_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_front_right_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='RF_SHANK_fixed_joint_lump__RF_FOOT_visual_1'>
+        <pose frame=''>0.308 0 0.22053 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Orgin_rf_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RF_KFE' type='revolute'>
+      <child>RF_SHANK</child>
+      <parent>RF_THIGH</parent>
+      <axis>
+        <xyz>-4e-06 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RH_HIP'>
+      <pose frame=''>-0.427 -0.075 -0.0095 7e-06 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.000688 0.104882 0.003776 0 -0 0</pose>
+        <mass>2.92311</mass>
+        <inertia>
+          <ixx>0.00482</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.007868</iyy>
+          <iyz>0</iyz>
+          <izz>0.008241</izz>
+        </inertia>
+      </inertial>
+      <collision name='RH_HIP_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RH_HIP_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_1_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RH_HAA' type='revolute'>
+      <child>RH_HIP</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>-1 7e-06 4e-06</xyz>
+        <limit>
+          <lower>-3</lower>
+          <upper>3</upper>
+          <effort>300</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RH_THIGH'>
+      <pose frame=''>-0.427 -0.075 -0.0095 -1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.184747 3.2e-05 0.129056 0 -0 0</pose>
+        <mass>4.21636</mass>
+        <inertia>
+          <ixx>0.006286</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.028156</iyy>
+          <iyz>0</iyz>
+          <izz>0.029242</izz>
+        </inertia>
+      </inertial>
+      <collision name='RH_THIGH_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RH_THIGH_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_2_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RH_HFE' type='revolute'>
+      <child>RH_THIGH</child>
+      <parent>RH_HIP</parent>
+      <axis>
+        <xyz>-4e-06 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='RH_SHANK'>
+      <pose frame=''>-0.427001 -0.075 -0.3175 -1.57079 1.57079 3.14159</pose>
+      <inertial>
+        <pose frame=''>0.211225 0.000185 0.22509 0 -0 0</pose>
+        <mass>0.477889</mass>
+        <inertia>
+          <ixx>0.000399746</ixx>
+          <ixy>7.88398e-07</ixy>
+          <ixz>1.94247e-05</ixz>
+          <iyy>0.00674411</iyy>
+          <iyz>-3.02435e-08</iyz>
+          <izz>0.00702737</izz>
+        </inertia>
+      </inertial>
+      <collision name='RH_SHANK_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='RH_SHANK_fixed_joint_lump__RH_FOOT_collision_1'>
+        <pose frame=''>0.308 0 0.22053 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rr_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='RH_SHANK_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rear_right_3_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='RH_SHANK_fixed_joint_lump__RH_FOOT_visual_1'>
+        <pose frame=''>0.308 0 0.22053 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://simpledog_description/meshes/quadruped/Origin_rr_foot_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RH_KFE' type='revolute'>
+      <child>RH_SHANK</child>
+      <parent>RH_THIGH</parent>
+      <axis>
+        <xyz>-4e-06 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <static>0</static>
+    <plugin name='balance_controller' filename='librobot_state_gazebo_ros_control_plugin.so'>
+      <robotNamespace>/simpledog</robotNamespace>
+      <robotSimType>balance_controller/SimRobotStateHardwareInterface</robotSimType>
+    </plugin>
+  </model>
+</sdf>
