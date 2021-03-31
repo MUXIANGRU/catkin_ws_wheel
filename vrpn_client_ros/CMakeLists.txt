@@ -51,6 +51,15 @@ target_link_libraries(vrpn_client_node
   ${catkin_LIBRARIES}
 )
 
+
+add_executable(self_localize
+  src/self_localize.cpp)
+
+add_dependencies(self_localize self_localize)
+target_link_libraries(self_localize
+  ${catkin_LIBRARIES}
+)
+
 install(TARGETS vrpn_client_ros vrpn_tracker_node vrpn_client_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

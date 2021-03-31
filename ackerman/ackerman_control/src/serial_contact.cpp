@@ -32,7 +32,7 @@ float_union r1, r2;
 
 serial::Serial djSerial_;
 
-double vx_command, vy_command, w_command;
+double vx_command, vy_command, w_command,velocity_thre;
 
 float wl_command, wr_command;
 
@@ -108,14 +108,25 @@ void command_callback(const geometry_msgs::TwistPtr& msg)
     wl_command = (float)(vx  - w * WHEEL_SPACING / 2) / WHEEL_DIA;
     // if rotate via a point, set wr = wl;
     //note:if command>8.0,the joystick cannot work???
-    if(wl_command > 8.0)
-        wl_command = 8.0;
-    if(wl_command < -8.0)
-        wl_command = -8.0;
-    if(wr_command > 8.0)
-        wr_command = 8.0;
-    if(wr_command < -8.0)
-        wr_command = -8.0;
+     if(wl_command > velocity_thre)
+         wl_command = velocity_thre;
+     if(wl_command < -velocity_thre)
+         wl_command = -velocity_thre;
+     if(wr_command > velocity_thre)
+         wr_command = velocity_thre;
+     if(wr_command < -velocity_thre)
+         wr_command = -velocity_thre;
+//     std::cout<<"========================"<<std::endl;
+//     std::cout<<velocity_thre<<std::endl;
+//     std::cout<<"========================"<<std::endl;
+//     if(wl_command > 8.0)
+//         wl_command = 8.0;
+//     if(wl_command < -8.0)
+//         wl_command = -8.0;
+//     if(wr_command > 8.0)
+//         wr_command = 8.0;
+//     if(wr_command < -8.0)
+//         wr_command = -8.0;
     v1.v = -wr_command; // change direction.
     v2.v = wl_command;
     ROS_WARN_STREAM_THROTTLE(3, "Comand wheel velocity  " << wl_command << "  ,  " << wr_command << std::endl);
@@ -143,6 +154,8 @@ int main(int argc, char** argv)
 
   ros::Subscriber velocity_commmand_subcriber_;
   velocity_commmand_subcriber_ = nh_.subscribe("/cmd_vel", 1000, command_callback);
+
+  nh_.param("/serial_contact/velocity_thre", velocity_thre, double(8.0));
 
   ros::Publisher wheel_velocity_pub_;
   wheel_velocity_pub_ = nh_.advertise<std_msgs::Float32>("/feedback_velocity",1000);
@@ -187,7 +200,7 @@ int main(int argc, char** argv)
   float sampling_time = 0;
   last_time = ros::Time::now();
   double n_sample = 0;
-  use_velocity_feedback_ = false;
+  use_velocity_feedback_ = true;
   while(ros::ok())
   {
       sleep(0.005); // delay 5 ms.
@@ -272,7 +285,7 @@ int main(int argc, char** argv)
       ROS_INFO_STREAM("Feedback angular velocity is  " << robot_vel_.Z << std::endl);
 
       std_msgs::Float32 wheel_velocity_;
-      wheel_velocity_.data = 0.36*(wl+wr)/2;
+      wheel_velocity_.data = vx;
       wheel_velocity_pub_.publish(wheel_velocity_);
       now = ros::Time::now();
       sampling_time = (now - last_time).toSec();
