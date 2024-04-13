@@ -2,7 +2,5 @@
 <manifest>
   <remote name="origin" fetch="https://github.com/MUXIANGRU/" review="https://github.com/MUXIANGRU" />
   <default revision="master" remote="origin" sync-j="4" />
-  <project path="source/security" name="security" />
-  <project path="source/safety" name="safety" />
-  <project path="source/slt" name="slt" />
+  <project path="source/simpledog_description" name="simpledog_description" />
 </manifest>
