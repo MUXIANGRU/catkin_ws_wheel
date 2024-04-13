@@ -1,4 +1,4 @@
-?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <remote name="origin" fetch="https://github.com/MUXIANGRU/" review="https://github.com/MUXIANGRU" />
   <default revision="master" remote="origin" sync-j="4" />
