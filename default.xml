@@ -2,5 +2,5 @@
 <manifest>
   <remote name="origin" fetch="https://github.com/MUXIANGRU/" review="https://github.com/MUXIANGRU" />
   <default revision="master" remote="origin" sync-j="4" />
-  <project path="source/simpledog_description" name="simpledog_description" />
+  <project path="source/catkin_ws_wheel" name="catkin_ws_wheel" />
 </manifest>
